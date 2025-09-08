@@ -4,12 +4,68 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Raj & Lumna Brain</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #f0f4ff, #ffeaf6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+    h1 {
+      color: #ff3e80;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .box {
+      background: white;
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 500px;
+    }
+    input {
+      width: 70%;
+      padding: 0.5rem;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    button {
+      padding: 0.5rem 1rem;
+      margin-left: 0.5rem;
+      border: none;
+      border-radius: 12px;
+      background: #ff3e80;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    button:hover {
+      background: #ff6699;
+    }
+    pre {
+      margin-top: 1rem;
+      white-space: pre-wrap;
+      background: #f9f9f9;
+      padding: 1rem;
+      border-radius: 12px;
+      max-height: 200px;
+      overflow-y: auto;
+      font-size: 0.95rem;
+    }
+  </style>
 </head>
 <body>
-  <h3>Raj & Lumna Brain</h3>
-  <input id="q" placeholder="Ask..."/>
-  <button id="go">Send</button>
-  <pre id="out"></pre>
+  <h1>🌸 Raj & Lumna Brain 🌸</h1>
+  <div class="box">
+    <input id="q" placeholder="Ask me anything..."/>
+    <button id="go">Send</button>
+    <pre id="out"></pre>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
   <script type="module" src="main.js"></script>
