@@ -18,53 +18,67 @@
       font-size: 2rem;
       margin-bottom: 1rem;
     }
-    .box {
+    .chatbox {
       background: white;
       border-radius: 20px;
-      padding: 2rem;
+      padding: 1rem;
       box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 500px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+    .msg {
+      padding: 0.6rem 1rem;
+      border-radius: 15px;
+      max-width: 80%;
+      font-size: 0.95rem;
+    }
+    .user {
+      background: #ffebf5;
+      align-self: flex-end;
+    }
+    .ai {
+      background: #e8f0ff;
+      align-self: flex-start;
+    }
+    .input-area {
+      margin-top: 1rem;
+      display: flex;
       width: 90%;
       max-width: 500px;
     }
     input {
-      width: 70%;
-      padding: 0.5rem;
+      flex: 1;
+      padding: 0.6rem;
       border-radius: 12px;
       border: 1px solid #ccc;
       font-size: 1rem;
     }
     button {
-      padding: 0.5rem 1rem;
       margin-left: 0.5rem;
+      padding: 0.6rem 1rem;
       border: none;
       border-radius: 12px;
       background: #ff3e80;
       color: white;
       font-size: 1rem;
       cursor: pointer;
-      transition: 0.2s;
     }
     button:hover {
       background: #ff6699;
-    }
-    pre {
-      margin-top: 1rem;
-      white-space: pre-wrap;
-      background: #f9f9f9;
-      padding: 1rem;
-      border-radius: 12px;
-      max-height: 200px;
-      overflow-y: auto;
-      font-size: 0.95rem;
     }
   </style>
 </head>
 <body>
   <h1>🌸 Raj & Lumna Brain 🌸</h1>
-  <div class="box">
+  <div class="chatbox" id="chat"></div>
+  <div class="input-area">
     <input id="q" placeholder="Ask me anything..."/>
     <button id="go">Send</button>
-    <pre id="out"></pre>
   </div>
 
   <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
