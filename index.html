@@ -4,62 +4,48 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Lumna Search — Raj & Lumna</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg1:#071025; --bg2:#081428; --accent:#ff4d8b; --accent2:#6ea8ff;
-    --muted: rgba(255,255,255,0.65); --card: rgba(255,255,255,0.03); --radius:14px;
-  }
-  *{box-sizing:border-box; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;color:#eaf2ff}
-  body{margin:0; min-height:100vh; background: radial-gradient(900px 400px at 10% 8%, rgba(14,21,44,0.6), transparent), linear-gradient(160deg,var(--bg1),var(--bg2));}
-  .wrap{max-width:1100px;margin:26px auto;padding:18px;display:grid;grid-template-columns:1fr 360px;gap:18px}
-  @media(max-width:920px){.wrap{grid-template-columns:1fr;padding:12px}.side{order:2}}
-  header{display:flex;gap:12px;align-items:center;margin-bottom:10px}
+  :root{--bg1:#071025;--bg2:#081428;--accent:#ff4d8b;--accent2:#6ea8ff;--muted:rgba(255,255,255,0.65);--card:rgba(255,255,255,0.03);--radius:14px}
+  *{box-sizing:border-box;font-family:Inter,system-ui,Arial;color:#eaf2ff} body{margin:0;min-height:100vh;background:radial-gradient(900px 400px at 10% 8%, rgba(14,21,44,0.6), transparent), linear-gradient(160deg,var(--bg1),var(--bg2));}
+  .wrap{max-width:1200px;margin:22px auto;padding:14px;display:grid;grid-template-columns:1fr 420px;gap:16px}
+  @media(max-width:980px){.wrap{grid-template-columns:1fr}.side{order:2}}
   .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#ffd1f0);display:flex;align-items:center;justify-content:center;color:#081028;font-weight:800}
-  h1{margin:0;font-size:20px}
-  p.subtitle{margin:0;color:var(--muted);font-size:13px}
-  .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:var(--radius);padding:16px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 8px 30px rgba(0,0,0,0.45)}
-  .controls{display:flex;gap:10px;align-items:center}
-  input.search{flex:1;padding:12px 14px;border-radius:12px;border:none;background:var(--card);color:inherit;font-size:15px;outline:none}
+  .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:14px;border:1px solid rgba(255,255,255,0.03)}
+  .controls{display:flex;gap:10px}
+  input.search{flex:1;padding:12px;border-radius:12px;border:none;background:var(--card);color:inherit;font-size:15px;outline:none}
   .types{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap}
-  .type-btn{padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--muted);cursor:pointer;font-size:13px}
+  .type-btn{padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--muted);cursor:pointer}
   .type-btn.active{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#081028;border:none;font-weight:600}
-  .results{margin-top:14px;display:grid;gap:12px}
-  .result{padding:12px;border-radius:12px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.02)}
-  .r-title{font-weight:700;font-size:15px}
-  .r-url{font-size:12px;color:#9fb4ff;margin-top:6px;word-break:break-all}
-  .r-snippet{color:var(--muted);margin-top:8px;font-size:14px}
-  .meta{display:flex;gap:8px;align-items:center;margin-top:8px}
-  .score{background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:8px;font-size:12px}
-  .side{height:calc(100vh - 100px);position:sticky;top:20px}
-  .analyzer{display:flex;flex-direction:column;height:100%}
-  .chat{flex:1;overflow:auto;padding-right:6px}
-  .bubble{max-width:90%;padding:8px 10px;border-radius:12px;margin:8px 0;font-size:14px}
-  .bubble.ai{background:rgba(110,168,255,0.08);align-self:flex-start}
+  .result{padding:12px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.02);margin-bottom:10px}
+  .r-title a{color:#eaf2ff;text-decoration:none}
+  .r-title a:hover{text-decoration:underline}
+  .preview-pane{margin-top:12px;padding:12px;border-radius:10px;background:rgba(255,255,255,0.01);max-height:400px;overflow:auto}
+  .chat{max-height:60vh;overflow:auto;padding-right:6px}
+  .bubble{padding:8px 10px;border-radius:12px;margin:8px 0;font-size:14px}
+  .bubble.ai{background:rgba(110,168,255,0.08)}
   .bubble.user{background:rgba(255,77,139,0.06);align-self:flex-end}
   .mini{display:flex;gap:8px;margin-top:8px}
   .btn{padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--muted);cursor:pointer}
   .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#081028;border:none}
-  .footer-note{margin-top:10px;color:var(--muted);font-size:12px}
-  .loader{display:inline-block;width:18px;height:18px;border-radius:50%;border:3px solid rgba(255,255,255,0.12);border-top-color:var(--accent2);animation:spin .9s linear infinite}
+  .loader{display:inline-block;width:14px;height:14px;border-radius:50%;border:3px solid rgba(255,255,255,0.12);border-top-color:var(--accent2);animation:spin .9s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
   <div class="wrap">
     <div>
-      <header>
+      <div style="display:flex;gap:12px;align-items:center;margin-bottom:12px">
         <div class="logo">L</div>
         <div>
-          <h1>Lumna Search</h1>
-          <p class="subtitle">Scientific smart search — pattern-learning brain • math-powered reasoning</p>
+          <div style="font-weight:700">Lumna Search</div>
+          <div style="font-size:13px;color:var(--muted)">Scientific smart search — brain in Worker</div>
         </div>
-      </header>
+      </div>
 
       <div class="card">
         <div class="controls">
-          <input id="q" class="search" placeholder="Search web, images, video, audio, code, medicine..." />
+          <input id="q" class="search" placeholder="Search web, image, video, audio, code, medicine..." />
           <button id="searchBtn" class="btn primary">Search</button>
         </div>
 
@@ -72,30 +58,25 @@
           <button class="type-btn" data-type="medicine">Medicine</button>
         </div>
 
-        <div id="results" class="results" aria-live="polite">
-          <div style="color:var(--muted);padding:12px;border-radius:10px;background:rgba(255,255,255,0.01)">
-            Try: "quantum error correction", "stack overflow gradient descent", or "saturn rings image"
-          </div>
-        </div>
+        <div id="results" style="margin-top:12px"></div>
+
+        <div id="preview" class="preview-pane" style="display:none"></div>
 
         <div style="display:flex;gap:8px;align-items:center;margin-top:10px">
-          <div class="pill">🧠 Brain: <span id="brainState">idle</span></div>
+          <div style="padding:8px;border-radius:10px;background:rgba(255,255,255,0.02)">🧠 <span id="brainState">idle</span></div>
           <div style="flex:1"></div>
           <button id="clearBtn" class="btn">Clear</button>
-          <button id="advBtn" class="btn">Advanced</button>
         </div>
-
-        <div class="footer-note">Powered by Lumna Brain (Worker) — results explained in Analyzer. Not medical advice.</div>
       </div>
     </div>
 
     <aside class="side">
-      <div class="card analyzer">
+      <div class="card" style="display:flex;flex-direction:column;height:100%">
         <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
           <div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#ffd1f0,#ffb3db);display:flex;align-items:center;justify-content:center;color:#081028;font-weight:700">L</div>
           <div>
             <div style="font-weight:700">Lumna Analyzer</div>
-            <div style="font-size:12px;color:var(--muted)">Pattern brain • math engine</div>
+            <div style="font-size:12px;color:var(--muted)">Explanation & pattern signals</div>
           </div>
         </div>
 
@@ -112,98 +93,134 @@
   </div>
 
 <script>
-const WORKER = "https://lumna-work.r-8981718053.workers.dev/"; // your worker
-const types = document.querySelectorAll('.type-btn');
+const WORKER = "https://lumna-work.r-8981718053.workers.dev/";
 let currentType = 'web';
+const types = document.querySelectorAll('.type-btn');
 types.forEach(t=> t.addEventListener('click', ()=>{
-  types.forEach(x=>x.classList.remove('active'));
-  t.classList.add('active');
-  currentType = t.dataset.type;
-  document.getElementById('brainState').innerText = 'mode:'+currentType;
+  types.forEach(x=>x.classList.remove('active')); t.classList.add('active'); currentType = t.dataset.type; document.getElementById('brainState').innerText = 'mode:'+currentType;
 }));
 
 document.getElementById('searchBtn').addEventListener('click', doSearch);
 document.getElementById('q').addEventListener('keydown', (e)=>{ if(e.key==='Enter') doSearch(); });
-document.getElementById('clearBtn').addEventListener('click', ()=>{ document.getElementById('results').innerHTML=''; });
+document.getElementById('clearBtn').addEventListener('click', ()=>{ document.getElementById('results').innerHTML=''; document.getElementById('preview').style.display='none'; });
 
-function addResultCard(item){
-  const r = document.createElement('div'); r.className='result';
-  const title = `<div class="r-title"><a href="${item.url}" target="_blank" rel="noopener noreferrer">${item.title}</a></div>`;
-  const url = `<div class="r-url">${item.url}</div>`;
-  const snippet = `<div class="r-snippet">${item.snippet||''}</div>`;
-  const meta = `<div class="meta"><div class="score">score ${item.score ?? ''}</div><div style="flex:1"></div><div style="font-size:12px;color:var(--muted)">${item.engine||''}</div></div>`;
-  r.innerHTML = title + url + snippet + meta;
-  document.getElementById('results').appendChild(r);
+function capChat(){
+  const chat = document.getElementById('chat');
+  const msgs = chat.querySelectorAll('.bubble');
+  // keep last 6 messages (remove older)
+  while(msgs.length > 6){
+    msgs[0].remove();
+  }
+}
+function addChat(text, who='ai'){
+  const chat = document.getElementById('chat');
+  const d = document.createElement('div'); d.className='bubble '+who; d.innerText=text;
+  chat.appendChild(d); chat.scrollTop = chat.scrollHeight; capChat();
 }
 
-function addChat(text, who='ai'){ const c=document.createElement('div'); c.className='bubble '+who; c.innerText=text; document.getElementById('chat').appendChild(c); document.getElementById('chat').scrollTop = document.getElementById('chat').scrollHeight; }
+function makeResultCard(item){
+  const r = document.createElement('div'); r.className='result';
+  r.innerHTML = `
+    <div class="r-title"><a href="#" data-url="${item.url}">${escapeHtml(item.title || item.url)}</a></div>
+    <div class="r-url">${escapeHtml(item.url)}</div>
+    <div class="r-snippet">${escapeHtml(item.snippet || '')}</div>
+    <div style="display:flex;gap:10px;align-items:center;margin-top:8px">
+      <div style="background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:8px;font-size:12px">score ${item.score ?? ''}</div>
+      <div style="flex:1"></div>
+      <div style="font-size:12px;color:var(--muted)">${item.engine||''}</div>
+    </div>
+  `;
+  // click on title => preview
+  r.querySelector('a').addEventListener('click', async (ev)=>{
+    ev.preventDefault();
+    const url = ev.target.dataset.url;
+    await showPreview(url);
+  });
+  return r;
+}
 
+function escapeHtml(s){ if(!s) return ''; return s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;'); }
+
+async function showPreview(url){
+  const preview = document.getElementById('preview');
+  preview.style.display = 'block';
+  preview.innerHTML = '<div style="display:flex;gap:8px;align-items:center"><div class="loader"></div><div>Loading preview…</div></div>';
+  try {
+    const resp = await fetch(WORKER + '?fetch_page=' + encodeURIComponent(url));
+    if (!resp.ok) throw new Error('preview failed '+resp.status);
+    // Worker returns sanitized HTML: we insert it inside preview safely
+    const html = await resp.text();
+    // Insert using innerHTML — content from our Worker is sanitized by Worker (scripts removed).
+    preview.innerHTML = html;
+    addChat('Preview loaded for ' + url, 'ai');
+  } catch(err){
+    preview.style.display='none';
+    // fallback: open in new tab
+    window.open(url,'_blank');
+    addChat('Preview failed — opened in new tab.', 'ai');
+  }
+}
+
+/* main search */
 async function doSearch(){
   const q = document.getElementById('q').value.trim();
   if(!q) return;
-  document.getElementById('results').innerHTML='';
-  document.getElementById('brainState').innerText='thinking';
+  document.getElementById('results').innerHTML = `<div style="padding:12px" class="result"><div style="display:flex;gap:8px;align-items:center"><div class="loader"></div><div>Fetching results…</div></div></div>`;
+  document.getElementById('brainState').innerText = 'thinking';
   addChat('…thinking on: "'+q+'"','ai');
 
-  // show loader card
-  const l = document.createElement('div'); l.className='result'; l.innerHTML='<div style="display:flex;gap:8px;align-items:center"><div class="loader"></div><div>Fetching results…</div></div>'; document.getElementById('results').appendChild(l);
-
   try {
-    // call worker brain with type hint
     const resp = await fetch(WORKER + '?q=' + encodeURIComponent(q) + '&type=' + encodeURIComponent(currentType));
     if (!resp.ok) throw new Error('Worker error '+resp.status);
     const data = await resp.json();
+    document.getElementById('results').innerHTML = '';
+    document.getElementById('preview').style.display='none';
 
-    document.getElementById('results').innerHTML='';
-
-    // If worker returns results array, display them
-    if (data && Array.isArray(data.results) && data.results.length>0){
-      data.results.forEach(item => addResultCard(item));
+    if (data && Array.isArray(data.results) && data.results.length>0) {
+      data.results.forEach(item=>{
+        document.getElementById('results').appendChild(makeResultCard(item));
+      });
     } else {
-      // fallback: show message + external link for media types
-      addResultCard({title: 'No brain results — open external search', url: externalSearchURL(q, currentType), snippet: 'Open full search in dedicated provider (fallback).', score: '', engine: 'fallback'});
-    }
-
-    // For media types, also add a big quick-open button
-    if (['image','video','audio'].includes(currentType)){
-      const openBox = document.createElement('div'); openBox.className='result';
-      const link = externalSearchURL(q, currentType);
-      openBox.innerHTML = `<div style="font-weight:700">Open media search</div><div style="margin-top:8px"><a href="${link}" target="_blank" rel="noopener noreferrer" class="btn primary">Open ${currentType} search</a></div>`;
-      document.getElementById('results').prepend(openBox);
+      // fallback: external search link
+      const external = document.createElement('div'); external.className='result';
+      external.innerHTML = `<div style="font-weight:700">No internal results</div><div style="margin-top:8px"><a href="${externalSearchURL(q,currentType)}" target="_blank" class="btn primary">Open external ${currentType} search</a></div>`;
+      document.getElementById('results').appendChild(external);
     }
 
     addChat('Analyzed query: "'+q+'" — brain updated.','ai');
-    document.getElementById('brainState').innerText='idle';
-  } catch(err){
-    document.getElementById('results').innerHTML='';
-    addResultCard({title:'Error', url:'', snippet: String(err), score:'', engine:'error'});
-    document.getElementById('brainState').innerText='error';
+    document.getElementById('brainState').innerText = 'idle';
+  } catch (err) {
+    document.getElementById('results').innerHTML = '';
+    const e = document.createElement('div'); e.className='result'; e.innerText = 'Error: '+err.message;
+    document.getElementById('results').appendChild(e);
+    document.getElementById('brainState').innerText = 'error';
     addChat('Error fetching: '+err.message,'ai');
   }
 }
 
 function externalSearchURL(q,type){
-  const qEnc = encodeURIComponent(q);
-  if(type==='web') return `https://www.bing.com/search?q=${qEnc}`;
-  if(type==='image') return `https://www.bing.com/images/search?q=${qEnc}`;
-  if(type==='video') return `https://www.youtube.com/results?search_query=${qEnc}`;
-  if(type==='audio') return `https://soundcloud.com/search?q=${qEnc}`;
-  if(type==='code') return `https://github.com/search?q=${qEnc}`;
-  if(type==='medicine') return `https://pubmed.ncbi.nlm.nih.gov/?term=${qEnc}`;
-  return `https://www.bing.com/search?q=${qEnc}`;
+  const qE = encodeURIComponent(q);
+  if(type==='web') return `https://www.bing.com/search?q=${qE}`;
+  if(type==='image') return `https://www.bing.com/images/search?q=${qE}`;
+  if(type==='video') return `https://www.youtube.com/results?search_query=${qE}`;
+  if(type==='audio') return `https://soundcloud.com/search?q=${qE}`;
+  if(type==='code') return `https://github.com/search?q=${qE}`;
+  if(type==='medicine') return `https://pubmed.ncbi.nlm.nih.gov/?term=${qE}`;
+  return `https://www.bing.com/search?q=${qE}`;
 }
 
 /* notes */
 document.getElementById('noteBtn').addEventListener('click', ()=>{
   const v = document.getElementById('mini').value.trim();
   if(!v) return;
-  const notes = JSON.parse(localStorage.getItem('rl_notes'||'[]')) || [];
+  const notes = JSON.parse(localStorage.getItem('rl_notes')||'[]');
   notes.push({t:Date.now(), text:v});
   localStorage.setItem('rl_notes', JSON.stringify(notes));
   addChat('Saved note: '+v,'user');
   document.getElementById('mini').value='';
 });
 
+/* focus */
 document.getElementById('q').focus();
 </script>
 </body>
